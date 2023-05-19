@@ -50,7 +50,7 @@ export default {
       drawer: true, // Establece el valor inicial del drawer a true si deseas que esté abierto por defecto
       menuItems: [
         { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/' },
-        { title: 'Empleados', icon: 'mdi-account-group-outline', route: '/employees' },
+        // { title: 'Empleados', icon: 'mdi-account-group-outline', route: '/employees' },
       ],
     };
   },
