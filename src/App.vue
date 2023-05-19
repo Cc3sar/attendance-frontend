@@ -1,77 +1,66 @@
 <template>
   <v-app>
-    <!-- <v-navigation-drawer v-model="drawer" app> -->
-    <BreadCrums :items="breadcrumbs" />
-    <!-- </v-navigation-drawer> -->
+    <v-navigation-drawer v-model="drawer" permanent>
+      <!-- Contenido del SideBar -->
+      <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="text-uppercase font-weight-bold">
+              Opciones
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      <v-list-item
+        v-for="item in menuItems"
+        :key="item.title"
+        :prepend-icon="item.icon"
+        :title="item.title"
+        @click="navigate(item.route)"
+      ></v-list-item>
+    </v-navigation-drawer>
 
-    <!-- use my sidebar -->
-    <SideBar />
+    <v-app-bar app>
+      <!-- Contenido de la barra de navegación superior -->
+      <v-toolbar-title class="text-right">
+        <span class="font-weight-bold">
+          Control de asistencia&nbsp;
+        </span>
+      </v-toolbar-title>
+    </v-app-bar>
+
     <v-main>
-      <!-- Contenido principal de la página -->
-      <router-view></router-view>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="auto">
+            <!-- Espacio reservado para el SideBar -->
+          </v-col>
+          <v-col>
+            <!-- Contenido de la página -->
+            <router-view></router-view>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import SideBar from './components/Sidebar.vue';
-import BreadCrums from './components/Breadcrumbs.vue';
-
 export default {
-  components : {
-    SideBar,
-    BreadCrums,
-  },
   data() {
     return {
-      drawer: false, // Estado para controlar la visibilidad de la barra lateral
+      drawer: true, // Establece el valor inicial del drawer a true si deseas que esté abierto por defecto
+      menuItems: [
+        { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/' },
+        { title: 'Empleados', icon: 'mdi-account-group-outline', route: '/employees' },
+      ],
     };
   },
-  computed: {
-    breadcrumbs() {
-      const routeName = this.$route.name; // Obtén el nombre de la ruta activa
-      let items = [];
-
-      // Determina los enlaces de breadcrumbs en función de la ruta activa
-      if (routeName === 'dashboard') {
-        items = [
-          {
-            text: 'Dashboard',
-            disabled: false,
-            href: '/dashboard',
-          },
-        ];
-      } else if (routeName === 'employees') {
-        items = [
-          {
-            text: 'Dashboard',
-            disabled: false,
-            href: '/dashboard',
-          },
-          {
-            text: 'Empleados',
-            disabled: false,
-            href: '/employees',
-          },
-        ];
-      } else if (routeName === 'reports') {
-        items = [
-          {
-            text: 'Dashboard',
-            disabled: false,
-            href: '/dashboard',
-          },
-          {
-            text: 'Reporte',
-            disabled: false,
-            href: '/reports',
-          },
-        ];
-      }
-
-      return items;
+  methods: {
+    navigate(route) {
+      // Aquí puedes realizar la redirección utilizando la función window.location.href
+      window.location.href = route;
     },
   },
 };
 </script>
+
 

@@ -3,23 +3,25 @@ import axios from "@/api/axios";
 
 export const useDashboardStore = defineStore("dashboard", {
     state: () => ({
-      lateEmployeesData: [],
-      earlyEmployeesData: [],
+      lateEmployeesData: {
+        labels: [],
+        datasets: [ { data: [] } ],
+      },
+      earlyEmployeesData: {
+        labels: [],
+        datasets: [ { data: [] } ],
+      },
     }),
     actions: {
       fetchEmployeesData() {
         axios
-          .get("users")
+          .get("schedule/get_report")
           .then((response) => {
-            // Manipular la respuesta de la solicitud y actualizar las variables de estado correspondientes
-  
-            // this.lateEmployeesData = employeesData.filter(
-            //   (employee) => employee.arrivalTime > "09:00"
-            // );
-            // this.earlyEmployeesData = employeesData.filter(
-            //   (employee) => employee.arrivalTime < "09:00"
-            // );
-            console.log(response);
+            const data = response.data;
+            console.log(data.late);
+            console.log(data.early);
+            this.lateEmployeesData = data.late;
+            this.earlyEmployeesData = data.early;
           })
           .catch((error) => {
             // Manejar errores de la solicitud
