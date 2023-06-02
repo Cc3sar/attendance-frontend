@@ -5,7 +5,12 @@
       <v-list-item>
           <v-list-item-content>
             <v-list-item-title class="text-uppercase font-weight-bold">
-              Opciones
+              <!-- logo almacenado en public -->
+              <v-img
+                src="../public/logo_umg.png"
+                max-height="100"
+                contain
+              ></v-img>
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
